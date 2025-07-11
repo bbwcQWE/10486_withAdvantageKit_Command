@@ -6,6 +6,7 @@ package frc.robot.subsystems.elevator;
 
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.hardware.TalonFX;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -15,7 +16,9 @@ public class ElevatorSubsystem extends SubsystemBase {
   /** Creates a new ElevatorSubsystem. */
   // Initializes an encoder on DIO pins 8 and 9
   // Defaults to 4X decoding and non-inverted
-  Encoder elevator_encoder = new Encoder(8, 9);
+  Encoder elevator_encoder = new Encoder(0, 1);
+
+  private final DigitalInput indexInput = new DigitalInput(7);
 
   private TalonFX ElevatorMotorLeft = new TalonFX(ElevatorConstants.ElevatorMotorIdLeft);
   private TalonFX ElevatorMotorRight = new TalonFX(ElevatorConstants.ElevatorMotorIdRight);
@@ -55,5 +58,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Ela", elevator_encoder.getDistance());
+    SmartDashboard.putNumber("Ela_Raw", elevator_encoder.get());
+    SmartDashboard.putBoolean("Index Pulse", indexInput.get());
   }
 }
