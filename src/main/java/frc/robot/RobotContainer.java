@@ -22,11 +22,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.Constants.GroundIntakeConstants;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.ElevatorDownCommand;
 import frc.robot.commands.ElevatorUpCommand;
+import frc.robot.commands.MoveIntakeCommand;
 import frc.robot.commands.Stop;
 import frc.robot.generated.TunerConstants;
+import frc.robot.subsystems.GroundIntake.GroundIntakeSubsystem;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIO;
 import frc.robot.subsystems.drive.GyroIOPigeon2;
@@ -57,6 +60,7 @@ public class RobotContainer {
   private final LoggedDashboardChooser<Command> autoChooser;
 
   private ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
+  private GroundIntakeSubsystem groundIntakeSubsystem = new GroundIntakeSubsystem();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
@@ -160,6 +164,21 @@ public class RobotContainer {
     controller.button(5).whileTrue(new ElevatorUpCommand(elevatorSubsystem));
     controller.button(6).whileTrue(new ElevatorDownCommand(elevatorSubsystem));
     elevatorSubsystem.setDefaultCommand(new Stop(elevatorSubsystem));
+
+    controller
+        .button(1)
+        .whileTrue(
+            new MoveIntakeCommand(groundIntakeSubsystem, GroundIntakeConstants.INTAKE_ANGLE_GRAB));
+    controller
+        .button(2)
+        .whileTrue(
+            new MoveIntakeCommand(
+                groundIntakeSubsystem, GroundIntakeConstants.INTAKE_ANGLE_PREPARE));
+    controller
+        .button(3)
+        .whileTrue(
+            new MoveIntakeCommand(
+                groundIntakeSubsystem, GroundIntakeConstants.INTAKE_ANGLE_GROUND));
   }
 
   /**

@@ -56,4 +56,32 @@ public final class Constants {
                     .withMotionMagicAcceleration(100))
             .withSlot0(new Slot0Configs().withKP(30).withKI(0).withKD(.4).withKS(0));
   }
+
+  public static class GroundIntakeConstants {
+    public static final int GroundIntakeKrakenId = 14;
+    public static final int GroundIntakeFalconId = 15;
+
+    public static final int gEncoderId = 2;
+
+    public static final double ENCODER_TO_INTAKE_GEAR_RATIO = 2.0;
+
+    public static final double kP = 5;
+    public static final double kI = 0;
+    public static final double kD = 0.05;
+
+    public static final double kPositionToleranceCycles = 0.005;
+
+    public static final double INTAKE_ANGLE_PREPARE = 0; // 预备位置
+    public static final double INTAKE_ANGLE_GROUND = .36; // 地面
+    public static final double INTAKE_ANGLE_GRAB = -.2; // L1
+
+    public static final double Maxspeed = .1;
+
+    public static final CurrentLimitsConfigs Amperelimit =
+        new CurrentLimitsConfigs()
+            .withStatorCurrentLimit(80)
+            .withSupplyCurrentLimitEnable(true)
+            .withStatorCurrentLimitEnable(true);
+    public static final TalonFXConfiguration configs = new TalonFXConfiguration();
+  }
 }

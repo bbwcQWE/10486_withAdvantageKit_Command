@@ -22,6 +22,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private MotionMagicVoltage motionMagicRequest = new MotionMagicVoltage(0);
 
   Encoder elevator_encoder = new Encoder(0, 1);
+  // DutyCycleEncoder tGencoder = new DutyCycleEncoder(2);
 
   // private final DigitalInput indexInput = new DigitalInput(7);
 
@@ -76,5 +77,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Ela_Raw", elevator_encoder.get());
     // SmartDashboard.putBoolean("Index Pulse", indexInput.get());
     SmartDashboard.putNumber("positon", getelevatorpositon());
+    // SmartDashboard.putNumber("Intake", tGencoder.get());
   }
 }
