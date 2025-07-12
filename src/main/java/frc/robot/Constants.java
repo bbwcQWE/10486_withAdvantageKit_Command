@@ -14,6 +14,8 @@
 package frc.robot;
 
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix6.configs.MotionMagicConfigs;
+import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import edu.wpi.first.wpilibj.RobotBase;
 
@@ -46,6 +48,12 @@ public final class Constants {
             .withStatorCurrentLimit(80)
             .withSupplyCurrentLimitEnable(true)
             .withStatorCurrentLimitEnable(true);
-    public static final TalonFXConfiguration configs = new TalonFXConfiguration();
+    public static final TalonFXConfiguration configs =
+        new TalonFXConfiguration()
+            .withMotionMagic(
+                new MotionMagicConfigs()
+                    .withMotionMagicCruiseVelocity(100)
+                    .withMotionMagicAcceleration(100))
+            .withSlot0(new Slot0Configs().withKP(30).withKI(0).withKD(.4).withKS(0));
   }
 }
