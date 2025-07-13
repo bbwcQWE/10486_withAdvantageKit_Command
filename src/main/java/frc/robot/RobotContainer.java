@@ -160,22 +160,22 @@ public class RobotContainer {
                             new Pose2d(drive.getPose().getTranslation(), new Rotation2d())),
                     drive)
                 .ignoringDisable(true));
-
+    /*电梯键位 */
     controller.button(5).whileTrue(new ElevatorUpCommand(elevatorSubsystem));
     controller.button(6).whileTrue(new ElevatorDownCommand(elevatorSubsystem));
     elevatorSubsystem.setDefaultCommand(new Stop(elevatorSubsystem));
-
+    /*地面抓取键位 */
     controller
-        .button(1)
+        .button(7)
         .whileTrue(
             new MoveIntakeCommand(groundIntakeSubsystem, GroundIntakeConstants.INTAKE_ANGLE_GRAB));
     controller
-        .button(2)
+        .button(8)
         .whileTrue(
             new MoveIntakeCommand(
                 groundIntakeSubsystem, GroundIntakeConstants.INTAKE_ANGLE_PREPARE));
     controller
-        .button(3)
+        .button(9)
         .whileTrue(
             new MoveIntakeCommand(
                 groundIntakeSubsystem, GroundIntakeConstants.INTAKE_ANGLE_GROUND));

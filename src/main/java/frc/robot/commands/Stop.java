@@ -24,7 +24,7 @@ public class Stop extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Stop.stop(0);
+    Stop.stop(.2);
   }
 
   // Called once the command ends or is interrupted.
