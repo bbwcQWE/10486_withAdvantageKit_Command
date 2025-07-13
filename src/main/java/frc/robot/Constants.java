@@ -65,6 +65,7 @@ public final class Constants {
 
     public static final double ENCODER_TO_INTAKE_GEAR_RATIO = 2.0;
 
+    /*地面抓取的PID在这里 */
     public static final double kP = 5;
     public static final double kI = 0;
     public static final double kD = 0.05;
@@ -72,7 +73,7 @@ public final class Constants {
     public static final double kPositionToleranceCycles = 0.005;
 
     public static final double INTAKE_ANGLE_PREPARE = 0; // 预备位置
-    public static final double INTAKE_ANGLE_GROUND = .36; // 地面
+    public static final double INTAKE_ANGLE_GROUND = .34; // 地面
     public static final double INTAKE_ANGLE_GRAB = -.2; // L1
 
     public static final double Maxspeed = .1;

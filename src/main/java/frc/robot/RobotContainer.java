@@ -27,6 +27,7 @@ import frc.robot.commands.DriveCommands;
 import frc.robot.commands.ElevatorDownCommand;
 import frc.robot.commands.ElevatorUpCommand;
 import frc.robot.commands.MoveIntakeCommand;
+import frc.robot.commands.RunIntakeCommand;
 import frc.robot.commands.Stop;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.GroundIntake.GroundIntakeSubsystem;
@@ -166,19 +167,21 @@ public class RobotContainer {
     elevatorSubsystem.setDefaultCommand(new Stop(elevatorSubsystem));
 
     controller
-        .button(1)
+        .button(9)
         .whileTrue(
             new MoveIntakeCommand(groundIntakeSubsystem, GroundIntakeConstants.INTAKE_ANGLE_GRAB));
     controller
-        .button(2)
+        .button(7)
         .whileTrue(
             new MoveIntakeCommand(
                 groundIntakeSubsystem, GroundIntakeConstants.INTAKE_ANGLE_PREPARE));
     controller
-        .button(3)
+        .button(8)
         .whileTrue(
             new MoveIntakeCommand(
                 groundIntakeSubsystem, GroundIntakeConstants.INTAKE_ANGLE_GROUND));
+
+    controller.button(4).whileTrue(new RunIntakeCommand(groundIntakeSubsystem));
   }
 
   /**

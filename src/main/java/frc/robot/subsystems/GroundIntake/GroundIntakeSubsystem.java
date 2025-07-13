@@ -16,6 +16,7 @@ import frc.robot.Constants.GroundIntakeConstants;
 public class GroundIntakeSubsystem extends SubsystemBase {
   /** Creates a new GroundIntakeSubsystem. */
   private TalonFX GIHum = new TalonFX(GroundIntakeConstants.GroundIntakeKrakenId);
+  private TalonFX SBHum = new TalonFX(GroundIntakeConstants.GroundIntakeFalconId);
 
   private DutyCycleEncoder Gencoder;
   private PIDController pidController;
@@ -28,8 +29,11 @@ public class GroundIntakeSubsystem extends SubsystemBase {
   public GroundIntakeSubsystem() {
 
     GroundIntakeConstants.configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    
     GIHum.getConfigurator().apply(GroundIntakeConstants.configs);
+    SBHum.getConfigurator().apply(GroundIntakeConstants.configs);
     GIHum.getConfigurator().apply(GroundIntakeConstants.Amperelimit);
+    SBHum.getConfigurator().apply(GroundIntakeConstants.Amperelimit);
 
     Gencoder = new DutyCycleEncoder(GroundIntakeConstants.gEncoderId);
 
@@ -51,6 +55,10 @@ public class GroundIntakeSubsystem extends SubsystemBase {
   public double getCurrentIntakeAngleDegrees() {
     // 现在直接调用 get() 方法即可，因为它已经根据构造函数配置进行了缩放和偏移。
     return Gencoder.get() - physicalZeroOffsetCycles;
+  }
+
+  public void runIntake(double speed){
+    SBHum.set(speed);
   }
 
   /**
