@@ -55,7 +55,7 @@ public final class Constants {
                     .withMotionMagicCruiseVelocity(40)
                     .withMotionMagicAcceleration(40))
             /*电梯的PID */
-            .withSlot0(new Slot0Configs().withKP(1).withKI(0).withKD(0).withKS(0));
+            .withSlot0(new Slot0Configs().withKP(1.3).withKI(0).withKD(0).withKS(0));
     public static final double ELEVATOR_POSITION_BOTTOM_ROTATIONS = 0.0; //
     public static final double ELEVATOR_POSITION_L1_ROTATIONS = 20.0; //
     public static final double ELEVATOR_POSITION_L2_ROTATIONS = 26.0; //
@@ -84,6 +84,34 @@ public final class Constants {
     public static final double INTAKE_ANGLE_GRAB = -.2; // L1
 
     public static final double Maxspeed = .1;
+
+    public static final CurrentLimitsConfigs Amperelimit =
+        new CurrentLimitsConfigs()
+            .withStatorCurrentLimit(80)
+            .withSupplyCurrentLimitEnable(true)
+            .withStatorCurrentLimitEnable(true);
+    public static final TalonFXConfiguration configs = new TalonFXConfiguration();
+  }
+
+  public static class FeederConstants {
+    public static final int FeederTurnerMotorID = 16;
+    public static final int FeederWheelMotorId = 17;
+
+    public static final int gEncoderId = 3;
+
+    public static final double ENCODER_TO_INTAKE_GEAR_RATIO = 2.0;
+
+    public static final double kP = 4;
+    public static final double kI = 0;
+    public static final double kD = 0.01;
+
+    public static final double kPositionToleranceCycles = 0.003;
+
+    public static final double INTAKE_ANGLE_PREPARE = .90; // 预备位置
+    public static final double INTAKE_ANGLE_SHOOT = .77; // 射击
+    public static final double INTAKE_ANGLE_ALGAE = -.48; // 海藻
+
+    public static final double Maxspeed = .05;
 
     public static final CurrentLimitsConfigs Amperelimit =
         new CurrentLimitsConfigs()

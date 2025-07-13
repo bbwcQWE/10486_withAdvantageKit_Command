@@ -17,6 +17,7 @@ public class MoveIntakeCommand extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     this.intakeSubsystem = intakeSubsystem;
     this.targetAngle = targetAngle;
+    addRequirements(this.intakeSubsystem);
   }
 
   // Called when the command is initially scheduled.

@@ -29,6 +29,7 @@ import frc.robot.commands.ElevatorUpCommand;
 import frc.robot.commands.MoveElevatorCommand;
 import frc.robot.commands.Stop;
 import frc.robot.generated.TunerConstants;
+import frc.robot.subsystems.Feeder.FeederSubsystem;
 import frc.robot.subsystems.GroundIntake.GroundIntakeSubsystem;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIO;
@@ -61,6 +62,7 @@ public class RobotContainer {
 
   private ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   private GroundIntakeSubsystem groundIntakeSubsystem = new GroundIntakeSubsystem();
+  private FeederSubsystem feederSubsystem = new FeederSubsystem();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
@@ -163,7 +165,7 @@ public class RobotContainer {
     /*电梯键位 */
     controller.button(5).whileTrue(new ElevatorUpCommand(elevatorSubsystem));
     controller.button(6).whileTrue(new ElevatorDownCommand(elevatorSubsystem));
-    controller.button(4).whileTrue(new Stop(elevatorSubsystem));
+    elevatorSubsystem.setDefaultCommand(new Stop(elevatorSubsystem));
     /*地面抓取键位 */
     // controller
     //    .button(7)
@@ -203,6 +205,12 @@ public class RobotContainer {
         .whileTrue(
             new MoveElevatorCommand(
                 elevatorSubsystem, ElevatorConstants.ELEVATOR_POSITION_L3_ROTATIONS));
+    // controller
+    //    .button(9)
+    //    .whileTrue(new MoveFeederConmand(feederSubsystem, FeederConstants.INTAKE_ANGLE_PREPARE));
+    // controller
+    //    .button(10)
+    //    .whileTrue(new MoveFeederConmand(feederSubsystem, FeederConstants.INTAKE_ANGLE_ALGAE));
   }
 
   /**

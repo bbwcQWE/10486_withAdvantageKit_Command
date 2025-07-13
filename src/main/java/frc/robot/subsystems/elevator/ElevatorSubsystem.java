@@ -51,7 +51,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void stop(double Elevator) {
-    ElevatorMotorLeft.set(Elevator * .08);
+    ElevatorMotorLeft.set(Elevator * 0);
   }
 
   public void resetEncoder() {
