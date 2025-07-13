@@ -52,9 +52,17 @@ public final class Constants {
         new TalonFXConfiguration()
             .withMotionMagic(
                 new MotionMagicConfigs()
-                    .withMotionMagicCruiseVelocity(100)
-                    .withMotionMagicAcceleration(100))
-            .withSlot0(new Slot0Configs().withKP(30).withKI(0).withKD(.4).withKS(0));
+                    .withMotionMagicCruiseVelocity(40)
+                    .withMotionMagicAcceleration(40))
+            /*电梯的PID */
+            .withSlot0(new Slot0Configs().withKP(1).withKI(0).withKD(0).withKS(0));
+    public static final double ELEVATOR_POSITION_BOTTOM_ROTATIONS = 0.0; //
+    public static final double ELEVATOR_POSITION_L1_ROTATIONS = 20.0; //
+    public static final double ELEVATOR_POSITION_L2_ROTATIONS = 26.0; //
+    public static final double ELEVATOR_POSITION_L3_ROTATIONS = 35.0; //
+    public static final double ELEVATOR_POSITION_L4_ROTATIONS = 40.0; //
+
+    public static final double ELEVATOR_POSITION_TOLERANCE_ROTATIONS = .2;
   }
 
   public static class GroundIntakeConstants {

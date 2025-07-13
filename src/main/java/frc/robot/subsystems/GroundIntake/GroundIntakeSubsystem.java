@@ -9,7 +9,6 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.GroundIntakeConstants;
 
@@ -71,14 +70,14 @@ public class GroundIntakeSubsystem extends SubsystemBase {
     double currentAngle = getCurrentIntakeAngleDegrees();
     double pidOutput = pidController.calculate(currentAngle, targetAngleDegrees);
     double motorVoltage = pidOutput * 12.0 * GroundIntakeConstants.Maxspeed;
-    SmartDashboard.putNumber("Intake Target Angle (Deg)", targetAngleDegrees);
-    SmartDashboard.putNumber("Intake Current Angle (Deg)", currentAngle);
-    // SmartDashboard.putNumber("Intake Angle Error (Deg)", pidController.getPositionError());
-    SmartDashboard.putNumber("Intake PID Output", pidOutput); // 这个值现在是钳制后的
-    SmartDashboard.putBoolean("Intake At Target", isAtTargetAngle());
-    // SmartDashboard.putNumber("Encoder Raw Value (0-1)", getRawEncoderValue());
-    SmartDashboard.putNumber("Motor Output (V)", motorVoltage);
-    SmartDashboard.putNumber("Intake", Gencoder.get());
+    // SmartDashboard.putNumber("Intake Target Angle (Deg)", targetAngleDegrees);
+    // SmartDashboard.putNumber("Intake Current Angle (Deg)", currentAngle);
+    //// SmartDashboard.putNumber("Intake Angle Error (Deg)", pidController.getPositionError());
+    // SmartDashboard.putNumber("Intake PID Output", pidOutput); // 这个值现在是钳制后的
+    // SmartDashboard.putBoolean("Intake At Target", isAtTargetAngle());
+    //// SmartDashboard.putNumber("Encoder Raw Value (0-1)", getRawEncoderValue());
+    // SmartDashboard.putNumber("Motor Output (V)", motorVoltage);
+    // SmartDashboard.putNumber("Intake", Gencoder.get());
     GIHum.setControl(voltageRequest.withOutput(motorVoltage));
   }
 }

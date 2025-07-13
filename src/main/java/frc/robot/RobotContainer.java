@@ -22,11 +22,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
-import frc.robot.Constants.GroundIntakeConstants;
+import frc.robot.Constants.ElevatorConstants;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.ElevatorDownCommand;
 import frc.robot.commands.ElevatorUpCommand;
-import frc.robot.commands.MoveIntakeCommand;
+import frc.robot.commands.MoveElevatorCommand;
 import frc.robot.commands.Stop;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.GroundIntake.GroundIntakeSubsystem;
@@ -163,22 +163,46 @@ public class RobotContainer {
     /*电梯键位 */
     controller.button(5).whileTrue(new ElevatorUpCommand(elevatorSubsystem));
     controller.button(6).whileTrue(new ElevatorDownCommand(elevatorSubsystem));
-    elevatorSubsystem.setDefaultCommand(new Stop(elevatorSubsystem));
+    controller.button(4).whileTrue(new Stop(elevatorSubsystem));
     /*地面抓取键位 */
+    // controller
+    //    .button(7)
+    //    .whileTrue(
+    //        new MoveIntakeCommand(groundIntakeSubsystem,
+    // GroundIntakeConstants.INTAKE_ANGLE_GRAB));
+    // controller
+    //    .button(8)
+    //    .whileTrue(
+    //        new MoveIntakeCommand(
+    //            groundIntakeSubsystem, GroundIntakeConstants.INTAKE_ANGLE_PREPARE));
+    // controller
+    //    .button(9)
+    //    .whileTrue(
+    //        new MoveIntakeCommand(
+    //            groundIntakeSubsystem, GroundIntakeConstants.INTAKE_ANGLE_GROUND));
+
+    /*电梯键位 */
     controller
         .button(7)
         .whileTrue(
-            new MoveIntakeCommand(groundIntakeSubsystem, GroundIntakeConstants.INTAKE_ANGLE_GRAB));
+            new MoveElevatorCommand(
+                elevatorSubsystem, ElevatorConstants.ELEVATOR_POSITION_BOTTOM_ROTATIONS));
     controller
         .button(8)
         .whileTrue(
-            new MoveIntakeCommand(
-                groundIntakeSubsystem, GroundIntakeConstants.INTAKE_ANGLE_PREPARE));
+            new MoveElevatorCommand(
+                elevatorSubsystem, ElevatorConstants.ELEVATOR_POSITION_L1_ROTATIONS));
+
     controller
         .button(9)
         .whileTrue(
-            new MoveIntakeCommand(
-                groundIntakeSubsystem, GroundIntakeConstants.INTAKE_ANGLE_GROUND));
+            new MoveElevatorCommand(
+                elevatorSubsystem, ElevatorConstants.ELEVATOR_POSITION_L2_ROTATIONS));
+    controller
+        .button(10)
+        .whileTrue(
+            new MoveElevatorCommand(
+                elevatorSubsystem, ElevatorConstants.ELEVATOR_POSITION_L3_ROTATIONS));
   }
 
   /**

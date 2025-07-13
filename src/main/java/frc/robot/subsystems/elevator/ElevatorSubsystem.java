@@ -9,7 +9,6 @@ import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -44,8 +43,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     ElevatorMotorLeft.getConfigurator().apply(amperageLimit);
     ElevatorMotorRight.getConfigurator().apply(amperageLimit);
 
-    /*PID控制 */
-
     ElevatorMotorRight.setControl(new Follower(ElevatorConstants.ElevatorMotorIdLeft, true));
   }
 
@@ -59,15 +56,22 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void resetEncoder() {
     elevator_encoder.reset();
+    ElevatorMotorLeft.setPosition(0.0);
     SmartDashboard.putNumber("Ela", 0.0); // 可以在这里也更新一下 SmartDashboard
   }
 
-  public void moveElevator(double degrees) {
-    ElevatorMotorLeft.setControl(motionMagicRequest.withPosition(Units.degreesToRadians(degrees)));
+  public void moveElevator(double targetRotations) {
+    ElevatorMotorLeft.setControl(motionMagicRequest.withPosition(targetRotations));
+    SmartDashboard.putNumber("Set", targetRotations); // 在 SmartDashboard 上显示你设置的目标
   }
 
-  public double getelevatorpositon() {
-    return Units.rotationsToDegrees(ElevatorMotorLeft.getPosition().getValueAsDouble());
+  public double getElevatorPositionRotations() {
+    // 直接从 TalonFX 获取位置，它返回的就是转数
+    return ElevatorMotorLeft.getPosition().getValueAsDouble();
+  }
+
+  public double getElevatorVelocityRotationsPerSec() {
+    return ElevatorMotorLeft.getVelocity().getValueAsDouble();
   }
 
   @Override
@@ -75,8 +79,21 @@ public class ElevatorSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Ela", elevator_encoder.getDistance());
     SmartDashboard.putNumber("Ela_Raw", elevator_encoder.get());
-    // SmartDashboard.putBoolean("Index Pulse", indexInput.get());
-    SmartDashboard.putNumber("positon", getelevatorpositon());
-    // SmartDashboard.putNumber("Intake", tGencoder.get());
+    // --- TalonFX 电梯 Motion Magic 调试参数 ---
+
+    // 1. 电梯当前绝对位置 (以转数 Rotations 为单位)
+    SmartDashboard.putNumber("Position", getElevatorPositionRotations());
+
+    // 2. 电梯当前速度 (以转数/秒 Rotations/sec 为单位)
+    SmartDashboard.putNumber("Velocity", getElevatorVelocityRotationsPerSec());
+
+    // 3. 电梯左电机施加的电压 (V)
+    SmartDashboard.putNumber(
+        "leftAppliedVolts", ElevatorMotorLeft.getMotorVoltage().getValueAsDouble());
+
+    // 5. 电梯右电机施加的电压 (V) (作为跟随者，这应该与左电机类似)
+    SmartDashboard.putNumber(
+        "Elevator_RightMotor_AppliedVolts",
+        ElevatorMotorRight.getMotorVoltage().getValueAsDouble());
   }
 }
